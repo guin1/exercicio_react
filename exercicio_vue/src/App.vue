@@ -1,21 +1,47 @@
 <script setup>
 
-    somar() {
-      this.operador = (num1, num2) => num1 + num2;
-      this.setarValor();
-    },
-    diminuir() {
-      this.operador = (num1, num2) => num1 - num2;
-      this.setarValor();
-    },
-  dividir() {
-      this.operador = (num1, num2) => num1 / num2;
-      this.setarValor();
-    },
-    multiplicar() {
-      this.operador = (num1, num2) => num1 * num2;
-      this.setarValor();
+import calculos from './componentes'
+
+export default {
+
+  data() {
+    return {
+      num1: 0,
+      num2: 0,
+      operacao: null,
     }
+  },
+  calculos: {
+    somar: function (num1, num2) {
+      return num1 + num2;
+    },
+    diminuir: function (num1, num2) {
+      return num1 - num2;
+    },
+    dividir: function (num1, num2) {
+      return num1 / num2;
+    },
+    multiplicar: function (num1, num2) {
+      return num1 * num2;
+    },
+  }
+
+  computed : {
+    resultado : { 
+      this.calculaResultado(this.num1, this.num2, this.somar);
+     },
+     resultado : { 
+      this.calculaResultado(this.num1, this.num2, this.diminuir);
+     },
+     resultado : { 
+      this.calculaResultado(this.num1, this.num2, this.dividir);
+     },
+     resultado : { 
+      this.calculaResultado(this.num1, this.num2, this.multiplicar);
+     }
+  }
+}
+
 </script>
 
 
@@ -26,16 +52,18 @@
     </header>
     <form>
       <div class="row">
-          <div class="col">
-              <input>
-                  type="number" placeholder="Insira um número" required class="form-control">
+
+        <div class="col">
+              <input
+              v-model="num1"  type="number" placeholder="Insira um número" required class="form-control" >
           </div>
           <div class="col">
               <input
-                  type="number" placeholder="Insira um número" required class="form-control">
+              v-model="num1"  type="number" placeholder="Insira um número" required class="form-control" >
           </div>
+
         <div class="col-md-4">
-            <select class="form-control">
+            <select class="form-control" v-model="calculos">
                 <option value="calculo">Selecionar Opções :</option>
                 <option v-on:click="somar" value="soma">Soma</option>
                 <option v-on:click="diminuir" value="subtracao">Subtração</option>
